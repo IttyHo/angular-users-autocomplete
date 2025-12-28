@@ -1,0 +1,10 @@
+<div>
+  <h1>{{ header }}</h1>
+  <form [formGroup]="form" action="">
+<input #nameInput type="text"  formControlName="name"  placeholder="Name">
+<input #emailInput type="text" formControlName="email" placeholder="Email">
+</form>
+
+@for (user of users(); track user) {
+  <p>{{ user.name }} - {{ user.email }}</p>
+}
