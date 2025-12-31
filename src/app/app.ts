@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 //import { RouterOutlet } from '@angular/router';
 import { User } from '../../Models/User';
 import { UserService } from '../../Services/user-service';
@@ -10,7 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   // imports: [RouterOutlet], 
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
 
   standalone: true,
   templateUrl: './app.html',

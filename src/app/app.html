@@ -1,10 +1,48 @@
-<div>
-  <h1>{{ header }}</h1>
-  <form [formGroup]="form" action="">
-<input #nameInput type="text"  formControlName="name"  placeholder="Name">
-<input #emailInput type="text" formControlName="email" placeholder="Email">
-</form>
+<div class="app-container">
+  <header class="app-header">
+    <h1>{{ header }}</h1>
+    <div class="subtitle">User explorer · modern UI</div>
+  </header>
 
-@for (user of users(); track user) {
-  <p>{{ user.name }} - {{ user.email }}</p>
-}
+  <section class="search-panel">
+    <form [formGroup]="form" class="search-form" novalidate>
+      <div class="field">
+        <label class="sr-only">Name</label>
+        <input #nameInput type="text" formControlName="name" placeholder="Search name" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label class="sr-only">Email</label>
+        <input #emailInput type="text" formControlName="email" placeholder="Search email" autocomplete="off" />
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn ghost" (click)="form.reset()">Clear</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="results">
+    <div class="results-meta">
+      <span class="count">{{ users().length }} results</span>
+    </div>
+
+    <div class="users-grid">
+      <ng-container *ngIf="users().length > 0; else noResults">
+        <div *ngFor="let user of users()" class="user-card">
+          <div class="avatar" aria-hidden="true">{{ user.name.charAt(0) }}</div>
+          <div class="info">
+            <div class="name">{{ user.name }}</div>
+            <div class="email">{{ user.email }}</div>
+          </div>
+          <div class="actions-card">
+            <button class="btn primary">Details</button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noResults>
+        <div class="no-results">No users to display.</div>
+      </ng-template>
+    </div>
+  </section>
+</div>

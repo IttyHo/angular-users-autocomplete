@@ -35,18 +35,20 @@ export class UserService {
   const email = value?.email?.toLowerCase().trim();
 
   const filteredUserList = this.userList.filter(user => {
-    const matchName =
-      name ? user.name.toLowerCase().includes(name) : false;
+    const matchName = name ? user.name.toLowerCase().includes(name) : false;
+    const matchEmail = email ? user.email.toLowerCase().includes(email) : false;
 
-    const matchEmail =
-      email ? user.email.toLowerCase().includes(email) : false;
-
-    // אם אין פילטרים בכלל – מחזירים הכל
+    // No filters provided -> return all
     if (!name && !email) {
       return true;
     }
 
-    // מספיק שאחד מהם מתאים
+    // Both filters provided -> require both to match (AND)
+    if (name && email) {
+      return matchName && matchEmail;
+    }
+
+    // Only one filter provided -> match that one
     return matchName || matchEmail;
   });
 
